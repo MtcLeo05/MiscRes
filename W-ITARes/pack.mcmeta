@@ -1,0 +1,10 @@
+{
+  "pack": {
+    "pack_format": 64,
+    "description": "W-ITA Resources",
+    "supported_formats": {
+      "min_inclusive": 30,
+      "max_inclusive": 999
+    }
+  }
+}
