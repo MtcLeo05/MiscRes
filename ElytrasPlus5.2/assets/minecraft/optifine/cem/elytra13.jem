@@ -1,0 +1,152 @@
+{
+	"credit": "Made with Blockbench",
+	"textureSize": [64, 32],
+	"texture": "elytra_texture.png",
+	"models": [
+		{
+			"part": "right_wing",
+			"id": "right_wing",
+			"invertAxis": "xy",
+			"translate": [-5, 0, 0],
+			"boxes": [
+				{
+					"coordinates": [-5, -20, 0, 10, 20, 2],
+					"uvNorth": [34, 2, 24, 22],
+					"uvEast": [36, 2, 34, 22],
+					"uvSouth": [46, 2, 36, 22],
+					"uvWest": [24, 2, 22, 22],
+					"uvUp": [24, 2, 34, 0],
+					"uvDown": [34, 0, 44, 2],
+					"sizeAdd": 1
+				}
+			],
+			"submodels": [
+				{
+					"id": "rcontrail",
+					"invertAxis": "xy",
+					"translate": [-6, -20.5, 3],
+					"texture": "contrail.png",
+					"submodels": [
+						{
+							"id": "rconspin",
+							"invertAxis": "xy",
+							"translate": [0, 0, 0],
+							"boxes": [
+								{
+									"coordinates": [-1, -0.5, 0, 1, 1, 0],
+									"uvNorth": [64, 0, 0, 32],
+									"uvEast": [0, 0, 0, 0],
+									"uvSouth": [0, 0, 64, 32],
+									"uvWest": [0, 0, 0, 0],
+									"uvUp": [0, 0, 0, 0],
+									"uvDown": [0, 0, 0, 0],
+									"sizeAdd": 0.01
+								}
+							],
+							"submodels": [
+								{
+									"id": "bone",
+									"invertAxis": "xy",
+									"translate": [-1, -1, 0.5],
+									"rotate": [-90, 0, 0]
+								}
+							]
+						}
+					]
+				}
+			],
+			"animations": [
+				{
+					"var.onground": "if(is_on_ground, 1, 0)",
+					"var.fallflying": "if(nbt(FallFlying,raw:1b),1,0)",
+					"var.yspeed": "(var.counter4-pos_y)/(frame_time)",
+					"var.zspeed": "((var.counter9-pos_z)/(frame_time))",
+					"var.xspeed": "((var.counter8-pos_x)/(frame_time))",
+					"var.rotxspeed": "(var.player_rotxcur-rot_x)/frame_time",
+					"var.relative_dist_y": "(pos_y-player_pos_y)",
+					"var.relative_dist_z": "(pos_z-player_pos_z)",
+					"var.relative_dist_x": "(pos_x-player_pos_x)",
+					"var.relative_dist": "sqrt(var.relative_dist_x * var.relative_dist_x + var.relative_dist_z * var.relative_dist_z + var.relative_dist_y * var.relative_dist_y)",
+					"var.is_main_player": "if(var.relative_dist < 1, 1, 0)",
+					"var.defactospeed": "if(var.fallflying > 0, if(var.speed > var.defactospeed, var.defactospeed + 0.02, var.defactospeed - 0.02), 0)",
+					"var.speed": "sqrt((var.xspeed*var.xspeed)+(var.yspeed*var.yspeed)+(var.zspeed*var.zspeed))/20",
+					"var.xzspeed": "sqrt(var.xspeed*var.xspeed + var.zspeed*var.zspeed)",
+					"var.rotxlerp": "var.rotxlerp * 0.9 + var.rotxspeed/300",
+					"var.totalspeed": "sqrt((var.xspeed * var.xspeed) + (var.yspeed * var.yspeed) + (var.zspeed * var.zspeed))",
+					"var.normalizedy": "var.yspeed / var.totalspeed",
+					"var.normalizedx": "var.xspeed / var.totalspeed",
+					"var.normalizedz": "var.zspeed / var.totalspeed",
+					"var.pitchdiff": "asin(var.normalizedy)-rot_x - (1-var.elytra_spread) * torad(15)",
+					"var.elytra_spread": "(right_wing.rz-0.261799)/(1.57067-0.261799)",
+					"var.contrail_xrot": "-left_wing.rx+lerp(var.elytra_spread,torad(170),torad(90))+var.pitchdiff",
+					"rcontrail.sx": "clamp(var.fallflying * (1-var.onground) * 13*var.defactospeed - 8 - abs(100*var.rotxlerp),0, 100)",
+					"rcontrail.rz": "-right_wing.rz+torad(90)",
+					"rcontrail.rx": "if(var.is_main_player == 1, var.contrail_xrot + var.elytra_spread * sin(-(player_rot_x+var.pitchdiff)) * cos((player_rot_x+var.pitchdiff)) * clamp(var.rotyspeed, 0, 3 * pi/4), (cos(rot_x) * (-left_wing.rx-(player_rot_x * -signum(rot_y - player_rot_y)))) - (sin(rot_x) * (player_rot_y) + torad(90)))",
+					"rcontrail.ry": "-var.pitchdiff",
+					"rcontrail.tx": "lerp(var.elytra_spread,-4,6)",
+					"lcontrail.sx": "rcontrail.sx",
+					"lcontrail.rz": "right_wing.rz+torad(90)",
+					"lcontrail.rx": "if(var.is_main_player == 1, -var.contrail_xrot + var.elytra_spread * sin(-(player_rot_x+var.pitchdiff)) * cos((player_rot_x+var.pitchdiff)) * clamp(var.rotyspeed, -3 * pi/4, 0), (cos(rot_x) * (left_wing.rx-(player_rot_x * -signum(rot_y - player_rot_y)))) - (sin(rot_x) * (player_rot_y) + torad(90)))",
+					"lcontrail.ry": "-var.pitchdiff",
+					"lcontrail.tx": "lerp(var.elytra_spread,4,-6)",
+					"var.counter4": "var.counter4prev",
+					"var.counter4prev": "pos_y",
+					"var.counter8": "var.counter8prev",
+					"var.counter8prev": "pos_x",
+					"var.counter9": "var.counter9prev",
+					"var.speed2": "var.speed2prev",
+					"var.speed2prev": "var.speed",
+					"var.counter9prev": "pos_z",
+					"var.player_rotxcur": "var.player_rotxprev",
+					"var.player_rotxprev": "rot_x"
+				}
+			]
+		},
+		{
+			"part": "left_wing",
+			"id": "left_wing",
+			"invertAxis": "xy",
+			"translate": [5, 0, 0],
+			"boxes": [
+				{
+					"coordinates": [-5, -20, 0, 10, 20, 2],
+					"uvNorth": [24, 2, 34, 22],
+					"uvEast": [22, 2, 24, 22],
+					"uvSouth": [36, 2, 46, 22],
+					"uvWest": [34, 2, 36, 22],
+					"uvUp": [34, 2, 24, 0],
+					"uvDown": [44, 0, 34, 2],
+					"sizeAdd": 1
+				}
+			],
+			"submodels": [
+				{
+					"id": "lcontrail",
+					"invertAxis": "xy",
+					"translate": [-6, -20.5, 3],
+					"texture": "contrail.png",
+					"boxes": [
+						{
+							"coordinates": [-1, -0.5, 0, 1, 1, 0],
+							"uvNorth": [64, 0, 0, 32],
+							"uvEast": [0, 0, 0, 0],
+							"uvSouth": [0, 0, 64, 32],
+							"uvWest": [0, 0, 0, 0],
+							"uvUp": [0, 0, 0, 0],
+							"uvDown": [0, 0, 0, 0],
+							"sizeAdd": 0.01
+						}
+					],
+					"submodels": [
+						{
+							"id": "bone2",
+							"invertAxis": "xy",
+							"translate": [-1, -1, 0.5],
+							"rotate": [-90, 0, 0]
+						}
+					]
+				}
+			]
+		}
+	]
+}

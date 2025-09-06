@@ -1,0 +1,101 @@
+{
+	"credit": "Made with Blockbench",
+	"textureSize": [64, 64],
+	"texture": "lingwing.png",
+	"models": [
+		{
+			"part": "right_wing",
+			"id": "right_wing",
+			"invertAxis": "xy",
+			"translate": [-5, 0, 0],
+			"boxes": [
+				{"coordinates": [-5, -20, -1, 0, 0, 0], "textureOffset": [0, 0]}
+			],
+			"animations": [
+				{
+					"real_right_wing.rz": "if(is_gliding, right_wing.rz, if(move_strafing>0.1, torad(-limb_speed*6), if(move_strafing<-0.1, torad(limb_speed*6), 0)))",
+					"real_left_wing.rz": "if(is_gliding, left_wing.rz, if(move_strafing>0.1, torad(-limb_speed*6), if(move_strafing<-0.1, torad(limb_speed*6), 0)))",
+					"left_wing.rz": 0,
+					"var.onground": "if(is_on_ground, 1, 0)",
+					"left_wing.ry": 0,
+					"torso.rx": "if(is_sneaking, torad(28.648), torad(0))",
+					"torso.ty": "if(is_sneaking, -0.77, 0)",
+					"torso.tz": "if(is_sneaking, -0.26, 0)",
+					"real_right_wing.rx": "if(is_gliding, right_wing.rx, if(move_forward>=0, torad(limb_speed*40), if(move_strafing>0.1, torad(limb_speed*20), if(move_strafing<-0.1, torad(limb_speed*20), torad(5)))))",
+					"real_left_wing.rx": "if(is_gliding, left_wing.rx, if(move_forward>=0, torad(limb_speed*40), if(move_strafing>0.1, torad(limb_speed*20), if(move_strafing<-0.1, torad(limb_speed*20), torad(5)))))",
+					"left_wing.rx": "0",
+					"jacket.ry": "var.player_bodyroty"
+				}
+			]
+		},
+		{
+			"part": "left_wing",
+			"id": "left_wing",
+			"invertAxis": "xy",
+			"translate": [5, 0, 0],
+			"submodels": [
+				{
+					"id": "jacket",
+					"invertAxis": "xy",
+					"translate": [0, 0, 0],
+					"submodels": [
+						{
+							"id": "torso",
+							"invertAxis": "xy",
+							"translate": [-5, 0, 2],
+							"boxes": [
+								{"coordinates": [7, -2, -4, 3, 3, 6], "textureOffset": [0, 44]},
+								{"coordinates": [0, -2, -4, 3, 3, 6], "textureOffset": [0, 27]},
+								{"coordinates": [3, -2, -1, 4, 3, 3], "textureOffset": [26, 16]},
+								{"coordinates": [6, -2, -5, 4, 3, 1], "textureOffset": [40, 16]},
+								{"coordinates": [0, -2, -5, 4, 3, 1], "textureOffset": [11, 40]},
+								{"coordinates": [3, -3, -5, 4, 3, 2], "textureOffset": [0, 36]}
+							],
+							"submodels": [
+								{
+									"id": "wings",
+									"invertAxis": "xy",
+									"translate": [5, 0.5, 0],
+									"submodels": [
+										{
+											"id": "right_shoulderwing",
+											"invertAxis": "xy",
+											"translate": [5, 0, 0.75],
+											"boxes": [
+												{"coordinates": [-4.75, -1.2, -5.25, 8, 1, 5], "textureOffset": [26, 58], "sizeAdd": 0.25}
+											]
+										},
+										{
+											"id": "left_shoulderwing",
+											"invertAxis": "xy",
+											"translate": [-5, 0, 0.75],
+											"boxes": [
+												{"coordinates": [-3.25, -1.2, -5.25, 8, 1, 5], "textureOffset": [0, 58], "sizeAdd": 0.25}
+											]
+										},
+										{
+											"id": "real_right_wing",
+											"invertAxis": "xy",
+											"translate": [5, 0, 0.75],
+											"boxes": [
+												{"coordinates": [-4.75, -22.2, -4.25, 8, 22, 4], "textureOffset": [23, 23], "sizeAdd": 0.25}
+											]
+										},
+										{
+											"id": "real_left_wing",
+											"invertAxis": "xy",
+											"translate": [-5, 0, 0.75],
+											"boxes": [
+												{"coordinates": [-3.25, -22.2, -4.25, 8, 22, 4], "textureOffset": [2, 1], "sizeAdd": 0.25}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
